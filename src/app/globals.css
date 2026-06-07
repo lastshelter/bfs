@@ -57,6 +57,33 @@
   to { transform: translateY(0); }
 }
 
+@keyframes float {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  50% { transform: translate(15px, -15px) scale(1.1); }
+}
+
+@keyframes float-reverse {
+  0%, 100% { transform: translate(0px, 0px) scale(1.1); }
+  50% { transform: translate(-15px, 15px) scale(0.95); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .animate-in {
   animation-duration: 200ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
@@ -78,5 +105,22 @@
 .ease-out {
   animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
+
+.animate-float-slow {
+  animation: float 12s ease-in-out infinite;
+}
+
+.animate-float-slow-reverse {
+  animation: float-reverse 15s ease-in-out infinite;
+}
+
+.animate-shake-error {
+  animation: shake 0.4s ease-in-out;
+}
+
+.animate-card-entrance {
+  animation: cardEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 
 

@@ -154,31 +154,37 @@ export default function AdministrativePortalPage(): React.JSX.Element {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#020b24] to-[#040e29] text-white flex flex-col justify-between selection:bg-blue-500/30">
-        <header className="border-b border-slate-800 bg-[#020b24]/50 backdrop-blur-md px-6 py-4">
+      <div className="min-h-screen bg-[#020b24] text-white flex flex-col justify-between selection:bg-blue-500/30 relative overflow-hidden">
+        {/* Animated Background Glowing Orbs */}
+        <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-[#0ba5f9]/10 blur-[120px] animate-float-slow pointer-events-none" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-amber-500/10 blur-[120px] animate-float-slow-reverse pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-purple-500/5 blur-[150px] pointer-events-none" />
+
+        <header className="border-b border-slate-800/80 bg-[#020b24]/40 backdrop-blur-md px-6 py-4 z-10">
           <div className="max-w-6xl mx-auto flex justify-between items-center">
-            <Link href="/" className="font-sans font-black text-lg text-white tracking-widest leading-none hover:text-[#0ba5f9] transition-colors">
+            <Link href="/" className="font-sans font-black text-lg text-white tracking-widest leading-none hover:text-[#0ba5f9] transition-all duration-300">
               BIGGS FUNDING SOLUTIONS
             </Link>
           </div>
         </header>
 
-        <main className="flex-1 flex items-center justify-center p-6">
-          <div className="w-full max-w-md bg-slate-900/60 border border-slate-800 backdrop-blur-md rounded-3xl p-8 md:p-10 shadow-2xl relative">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-[#0ba5f9]/5 rounded-full blur-3xl pointer-events-none" />
-
+        <main className="flex-1 flex items-center justify-center p-6 z-10">
+          <div className="w-full max-w-md bg-slate-900/40 border border-slate-800/80 backdrop-blur-xl rounded-3xl p-8 md:p-10 shadow-2xl relative animate-card-entrance hover:border-slate-700/60 focus-within:border-[#0ba5f9]/30 transition-all duration-500 group">
+            {/* Inner radial card glow */}
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-[#0ba5f9]/0 via-[#0ba5f9]/0 to-[#0ba5f9]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+            
             <div className="text-center mb-8 border-b border-slate-800/60 pb-6">
-              <h1 className="font-sans font-black text-base tracking-wider text-white uppercase mb-2">
-                Administrative Portal Login
+              <h1 className="font-display font-bold text-xl tracking-tight text-white mb-2">
+                Owner/Admin Login to Control Panel
               </h1>
               <p className="text-slate-400 text-[10px] uppercase tracking-widest font-semibold">
-                Authorized Underwriting Personnel Only
+                Authorized Personnel Security Gateway
               </p>
             </div>
 
             <form onSubmit={handleLogin} className="space-y-5">
               <div className="space-y-1.5">
-                <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                <label className="block text-[10px] font-bold text-slate-450 uppercase tracking-widest">
                   Corporate Username
                 </label>
                 <input
@@ -186,13 +192,13 @@ export default function AdministrativePortalPage(): React.JSX.Element {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="Enter username (e.g. admin, michaelb)"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-[#0ba5f9] focus:border-[#0ba5f9] transition-all"
+                  className="w-full bg-slate-950/70 border border-slate-800/80 rounded-xl px-4 py-3 text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-[#0ba5f9]/50 focus:border-[#0ba5f9]/50 shadow-[0_0_15px_rgba(11,165,249,0.02)] focus:shadow-[0_0_20px_rgba(11,165,249,0.08)] transition-all duration-300"
                   required
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                <label className="block text-[10px] font-bold text-slate-450 uppercase tracking-widest">
                   Security Passkey / Password
                 </label>
                 <div className="relative">
@@ -201,13 +207,13 @@ export default function AdministrativePortalPage(): React.JSX.Element {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter passkey value"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-4 pr-16 py-3 text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-[#0ba5f9] focus:border-[#0ba5f9] transition-all"
+                    className="w-full bg-slate-950/70 border border-slate-800/80 rounded-xl pl-4 pr-16 py-3 text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-[#0ba5f9]/50 focus:border-[#0ba5f9]/50 shadow-[0_0_15px_rgba(11,165,249,0.02)] focus:shadow-[0_0_20px_rgba(11,165,249,0.08)] transition-all duration-300"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors text-[9px] font-bold uppercase tracking-wider focus:outline-none px-2.5 py-1.5 bg-slate-900 border border-slate-800 rounded-md"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors text-[9px] font-bold uppercase tracking-wider focus:outline-none px-2.5 py-1.5 bg-slate-900 border border-slate-800/80 rounded-md"
                   >
                     {showPassword ? "Hide" : "Show"}
                   </button>
@@ -215,7 +221,7 @@ export default function AdministrativePortalPage(): React.JSX.Element {
               </div>
 
               {error && (
-                <div className="p-3 bg-rose-500/10 border border-rose-500/20 rounded-xl text-rose-400 text-xs text-center font-medium">
+                <div className="p-3 bg-rose-500/10 border border-rose-500/20 rounded-xl text-rose-450 text-xs text-center font-semibold animate-shake-error">
                   {error}
                 </div>
               )}
@@ -223,16 +229,26 @@ export default function AdministrativePortalPage(): React.JSX.Element {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-3.5 bg-[#0ba5f9] hover:bg-[#008ee3] text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all hover:shadow-lg hover:shadow-[#0ba5f9]/20 active:scale-[0.98] disabled:opacity-50 cursor-pointer"
+                className="w-full py-3.5 bg-[#0ba5f9] hover:bg-[#008ee3] text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-[#0ba5f9]/20 active:scale-[0.98] disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
               >
-                {isLoading ? "Verifying Credentials..." : "Authenticate Admin Session"}
+                {isLoading ? (
+                  <>
+                    <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                    Validating Credentials...
+                  </>
+                ) : (
+                  "Authenticate Admin Session"
+                )}
               </button>
             </form>
           </div>
         </main>
 
-        <footer className="py-6 border-t border-slate-800/60 bg-[#020b24]/20 text-center text-[10px] text-slate-500">
-          © 2026 BIGGS FUNDING SOLUTIONS. Secure Operational Gateway.
+        <footer className="py-6 border-t border-slate-850/80 bg-[#020b24]/40 text-center text-[10px] text-slate-500 z-10">
+          © 2026 BIGGS FUNDING SOLUTIONS. Secure Operational Control Gateway.
         </footer>
       </div>
     );
