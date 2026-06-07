@@ -1,187 +1,86 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
 
-export default function commercialrealestateloansPage(): React.JSX.Element {
+export default function CommercialRealEstateLoansPage(): React.JSX.Element {
   return (
-    <div className="flex-1 flex flex-col bg-[#020b24] text-slate-100 min-h-screen">
-      {/* Hero Header */}
-      <section className="relative overflow-hidden border-b border-slate-800/80 bg-[#06153b]/40 px-6 py-16 md:py-24">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#0ba5f9]/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#e08b00]/5 rounded-full blur-3xl pointer-events-none" />
-        
-        <div className="max-w-4xl mx-auto text-center space-y-6">
-          <span className="text-[10px] uppercase text-[#0ba5f9] font-bold tracking-widest bg-[#0ba5f9]/10 px-3 py-1 rounded-full">
-            Commercial Finance
+    <div className="min-h-screen bg-[#020b24] text-slate-100 font-sans selection:bg-blue-500/30">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#020b24] via-[#04123b] to-[#020b24] py-20 md:py-28 px-4 border-b border-slate-900">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(11,165,249,0.08),transparent_50%)]" />
+        <div className="max-w-4xl mx-auto text-center relative z-10 space-y-4">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#0ba5f9]/10 text-[#0ba5f9] tracking-wide uppercase border border-[#0ba5f9]/20">
+            Funding Solutions
           </span>
-          <h1 className="font-display text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
             Commercial Real Estate Loans Refi or Purchase
           </h1>
-          <p className="text-slate-350 text-xs md:text-sm max-w-2xl mx-auto leading-relaxed">
-            We help business owners and individuals secure commercial real estate loans for purchase, refinance, refinance – cash out, or for investment. We have various loan programs for borrowers with either good credit or bad credit. Below are some of the len...
-          </p>
-          <div className="pt-4">
-            <Link
-              href="/apply"
-              className="inline-block bg-[#e08b00] hover:bg-[#d67d00] text-white font-bold text-xs uppercase tracking-widest px-8 py-3.5 rounded-xl transition-smooth shadow-lg shadow-[#e08b00]/15"
-            >
-              Apply Now
-            </Link>
-          </div>
         </div>
       </section>
 
-      {/* Main Content */}
-      <section className="max-w-4xl w-full mx-auto px-6 py-16 space-y-12">
-        {/* Paragraphs */}
-        <div className="space-y-6">
-          <p className="text-xs md:text-sm text-slate-300 leading-relaxed">
-            Lending Parameters
+      {/* Content Section */}
+      <section className="max-w-3xl mx-auto px-4 py-16 md:py-20">
+        <div className="bg-slate-900/40 border border-slate-800/80 backdrop-blur-md rounded-2xl p-8 md:p-12 shadow-2xl space-y-8">
+          <p className="text-slate-300 text-base md:text-lg leading-relaxed">
+            We help business owners and individuals secure commercial real estate loans for purchase, refinance, refinance – cash out, or for investment. We have various loan programs for borrowers with either good credit or bad credit. Below are some of the lending parameters and minimal requirements to initiate funding. If you have any questions please contact us. We are here to help.
           </p>
-        
-          <p className="text-xs md:text-sm text-slate-300 leading-relaxed">
-            About Us Contact Us
-          </p>
-        </div>
 
-        {/* Headings */}
-        
+          {/* Requirements */}
+          <div className="space-y-4 pt-6 border-t border-slate-800/60">
+            <h2 className="text-xl font-bold text-[#0ba5f9] tracking-tight uppercase">
+              Lending requirements – parameters
+            </h2>
+            <ul className="space-y-3">
+              {[
+                "Commercial loan application completed",
+                "Personal Financial Statement",
+                "Complete last 6 months of borrowers business and personal bank statements.",
+                "Complete Debt schedule listing all business debt being serviced",
+                "Rent roll if purchasing, refinancing, or cash out of commercial property with tenants.",
+                "Most recent mortgage must be current on mortgage",
+                "Appraisal of property will be ordered by lender and paid for by borrower"
+              ].map((requirement, index) => (
+                <li key={index} className="flex items-start gap-3 text-slate-300 text-base">
+                  <span className="mt-2 flex h-2 w-2 shrink-0 rounded-full bg-[#0ba5f9] shadow-[0_0_8px_rgba(11,165,249,0.6)]" />
+                  <span>{requirement}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        {/* Lists & Parameters */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-        <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 bg-slate-950/40 relative">
-          <h3 className="font-display font-semibold text-sm uppercase text-[#0ba5f9] tracking-wider mb-4">
-            Parameters & Requirements
-          </h3>
-          <ul className="space-y-3">
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Commercial Real Estate Loans Refi or Purchase</span>
-              </li>
-            
-          </ul>
-        </div>
-      
-        <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 bg-slate-950/40 relative">
-          <h3 className="font-display font-semibold text-sm uppercase text-[#0ba5f9] tracking-wider mb-4">
-            Parameters & Requirements
-          </h3>
-          <ul className="space-y-3">
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Commercial loan application completed</span>
-              </li>
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Personal Financial Statement</span>
-              </li>
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Complete last 6 months of borrowers business and personal bank statements.</span>
-              </li>
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Complete Debt schedule listing all business debt being serviced</span>
-              </li>
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Rent roll if purchasing, refinancing, or cash out of commercial property with tenants.</span>
-              </li>
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Most recent mortgage must be current on mortgage</span>
-              </li>
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Appraisal of property will be ordered by lender and paid for by borrower</span>
-              </li>
-            
-          </ul>
-        </div>
-      
-        <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 bg-slate-950/40 relative">
-          <h3 className="font-display font-semibold text-sm uppercase text-[#0ba5f9] tracking-wider mb-4">
-            Parameters & Requirements
-          </h3>
-          <ul className="space-y-3">
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Loan size $ 100,000.00 – $ 50,000,000.00</span>
-              </li>
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>50% to 85% loan to value on a case by case</span>
-              </li>
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Property types: Office buildings, income producing, multi family, mixed use, retail, light industrial, warehouse, self storage, condo, mobile home parks.</span>
-              </li>
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Rate adjustments depend on property type, credit score, borrower net worth/ liquidity, purpose of loan,market size, and more.</span>
-              </li>
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Terms 5,7 or 10 years with negotiable extensions</span>
-              </li>
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Amortization 25 or 30 years</span>
-              </li>
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Prepayment premiums depends on transactions and lender</span>
-              </li>
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Deposits and fees depends on type of transaction</span>
-              </li>
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Loan reserves depends on type of transaction</span>
-              </li>
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Rates depend on the type of transaction, borrower credit and experience.</span>
-              </li>
-            
-          </ul>
-        </div>
-      </div>
+          {/* Parameters */}
+          <div className="space-y-4 pt-6 border-t border-slate-800/60">
+            <h2 className="text-xl font-bold text-[#0ba5f9] tracking-tight uppercase">
+              Lending Parameters
+            </h2>
+            <ul className="space-y-3">
+              {[
+                "Loan size $ 100,000.00 – $ 50,000,000.00",
+                "50% to 85% loan to value on a case by case",
+                "Property types: Office buildings, income producing, multi family, mixed use, retail, light industrial, warehouse, self storage, condo, mobile home parks.",
+                "Rate adjustments depend on property type, credit score, borrower net worth/ liquidity, purpose of loan, market size, and more.",
+                "Terms 5,7 or 10 years with negotiable extensions",
+                "Amortization 25 or 30 years",
+                "Prepayment premiums depends on transactions and lender",
+                "Deposits and fees depends on type of transaction",
+                "Loan reserves depends on type of transaction",
+                "Rates depend on the type of transaction, borrower credit and experience."
+              ].map((parameter, index) => (
+                <li key={index} className="flex items-start gap-3 text-slate-300 text-base">
+                  <span className="mt-2 flex h-2 w-2 shrink-0 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.6)]" />
+                  <span>{parameter}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        {/* Verification and Security Panel */}
-        <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 bg-slate-950/20 text-center space-y-4">
-          <h4 className="font-display font-semibold text-xs text-white uppercase tracking-wider">
-            Secured Connection & Fast Processing
-          </h4>
-          <p className="text-[11px] text-slate-400 max-w-lg mx-auto">
-            All applications are processed securely using AES-256-GCM encryption. Pre-qualification outcomes are delivered within 24 to 48 hours.
-          </p>
-          <div className="pt-2">
-            <Link
-              href="/apply"
-              className="inline-block bg-slate-900 hover:bg-slate-850 border border-slate-800 text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-xl text-[#0ba5f9] transition-smooth"
-            >
-              Get Pre-qualified
+          <div className="pt-8 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <p className="text-xs text-slate-400 max-w-md">
+              Secure funding for your commercial properties. Submit your details securely using our interactive portal.
+            </p>
+            <Link href="/apply" className="w-full sm:w-auto">
+              <span className="inline-block w-full sm:w-auto text-center px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold rounded-xl shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 cursor-pointer">
+                Apply Now
+              </span>
             </Link>
           </div>
         </div>

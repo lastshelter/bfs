@@ -1,84 +1,59 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
 
-export default function assetbackedloansPage(): React.JSX.Element {
+export default function AssetBackedLoansPage(): React.JSX.Element {
   return (
-    <div className="flex-1 flex flex-col bg-[#020b24] text-slate-100 min-h-screen">
-      {/* Hero Header */}
-      <section className="relative overflow-hidden border-b border-slate-800/80 bg-[#06153b]/40 px-6 py-16 md:py-24">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#0ba5f9]/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#e08b00]/5 rounded-full blur-3xl pointer-events-none" />
-        
-        <div className="max-w-4xl mx-auto text-center space-y-6">
-          <span className="text-[10px] uppercase text-[#0ba5f9] font-bold tracking-widest bg-[#0ba5f9]/10 px-3 py-1 rounded-full">
-            Commercial Finance
+    <div className="min-h-screen bg-[#020b24] text-slate-100 font-sans selection:bg-blue-500/30">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#020b24] via-[#04123b] to-[#020b24] py-20 md:py-28 px-4 border-b border-slate-900">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(11,165,249,0.08),transparent_50%)]" />
+        <div className="max-w-4xl mx-auto text-center relative z-10 space-y-4">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#0ba5f9]/10 text-[#0ba5f9] tracking-wide uppercase border border-[#0ba5f9]/20">
+            Funding Solutions
           </span>
-          <h1 className="font-display text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
             Asset Backed Loans
           </h1>
-          <p className="text-slate-350 text-xs md:text-sm max-w-2xl mx-auto leading-relaxed">
-            Whether you have excellent credit or bad credit and your company need funds to maintain or to grow the business, or you can not get approved for a short term or long term loan or you simply do not want to go down that road, or you don&apos;t have months t...
-          </p>
-          <div className="pt-4">
-            <Link
-              href="/apply"
-              className="inline-block bg-[#e08b00] hover:bg-[#d67d00] text-white font-bold text-xs uppercase tracking-widest px-8 py-3.5 rounded-xl transition-smooth shadow-lg shadow-[#e08b00]/15"
-            >
-              Apply Now
-            </Link>
-          </div>
         </div>
       </section>
 
-      {/* Main Content */}
-      <section className="max-w-4xl w-full mx-auto px-6 py-16 space-y-12">
-        {/* Paragraphs */}
-        <div className="space-y-6">
-          <p className="text-xs md:text-sm text-slate-300 leading-relaxed">
-            Needed 1. Online application completed 2. Pictures of Equipment to be pledged 3. Proof of ownership of equipment ( Title or Bill of sale, invoices, or receipt ) 4. Complete last 6 months of the business bank statements 5. Copy of Business voided check 6. Colored copy of driver&apos;s license
+      {/* Content Section */}
+      <section className="max-w-3xl mx-auto px-4 py-16 md:py-20">
+        <div className="bg-slate-900/40 border border-slate-800/80 backdrop-blur-md rounded-2xl p-8 md:p-12 shadow-2xl space-y-8">
+          <p className="text-slate-300 text-base md:text-lg leading-relaxed">
+            Whether you have excellent credit or bad credit and your company need funds to maintain or to grow the business, or you can not get approved for a short term or long term loan or you simply do not want to go down that road, or you don&apos;t have months to wait on a banks approval or denial we have the solution for you. We have lenders that are willing to loan you the money that you need by collateralizing the loan with the equipment of the company. They offer 70% of the liquid value of the equipment with 1 to 3 year terms to repay the loan. The interest charged will vary depending on yours and the companies credit, time in business and industry type. The funding time on this type of loan is 1 to 5 business days. If you have any questions please call us. So do not delay in applying today. Below is a list of what we need to get your business funded.
           </p>
-        
-          <p className="text-xs md:text-sm text-slate-300 leading-relaxed">
-            About Us Contact Us
-          </p>
-        </div>
 
-        {/* Headings */}
-        
+          {/* Requirements List */}
+          <div className="space-y-4 pt-6 border-t border-slate-800/60">
+            <h2 className="text-xl font-bold text-[#0ba5f9] tracking-tight uppercase">
+              Needed
+            </h2>
+            <ul className="space-y-3">
+              {[
+                "1. Online application completed",
+                "2. Pictures of Equipment to be pledged",
+                "3. Proof of ownership of equipment ( Title or Bill of sale, invoices, or receipt )",
+                "4. Complete last 6 months of the business bank statements",
+                "5. Copy of Business voided check",
+                "6. Colored copy of driver's license"
+              ].map((requirement, index) => (
+                <li key={index} className="flex items-start gap-3 text-slate-300 text-base">
+                  <span className="mt-2 flex h-2 w-2 shrink-0 rounded-full bg-[#0ba5f9] shadow-[0_0_8px_rgba(11,165,249,0.6)]" />
+                  <span>{requirement}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        {/* Lists & Parameters */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-        <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 bg-slate-950/40 relative">
-          <h3 className="font-display font-semibold text-sm uppercase text-[#0ba5f9] tracking-wider mb-4">
-            Parameters & Requirements
-          </h3>
-          <ul className="space-y-3">
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Asset Backed Loans</span>
-              </li>
-            
-          </ul>
-        </div>
-      </div>
-
-        {/* Verification and Security Panel */}
-        <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 bg-slate-950/20 text-center space-y-4">
-          <h4 className="font-display font-semibold text-xs text-white uppercase tracking-wider">
-            Secured Connection & Fast Processing
-          </h4>
-          <p className="text-[11px] text-slate-400 max-w-lg mx-auto">
-            All applications are processed securely using AES-256-GCM encryption. Pre-qualification outcomes are delivered within 24 to 48 hours.
-          </p>
-          <div className="pt-2">
-            <Link
-              href="/apply"
-              className="inline-block bg-slate-900 hover:bg-slate-850 border border-slate-800 text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-xl text-[#0ba5f9] transition-smooth"
-            >
-              Get Pre-qualified
+          <div className="pt-8 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <p className="text-xs text-slate-400 max-w-md">
+              Secure financing collateralized by your existing equipment. Click below to submit your application details.
+            </p>
+            <Link href="/apply" className="w-full sm:w-auto">
+              <span className="inline-block w-full sm:w-auto text-center px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold rounded-xl shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 cursor-pointer">
+                Apply Now
+              </span>
             </Link>
           </div>
         </div>

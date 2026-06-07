@@ -3,78 +3,84 @@
 import React from "react";
 import Link from "next/link";
 
-export default function howtodownloadanduploadbankstatementsPage(): React.JSX.Element {
+export default function HowToDownloadAndUploadBankStatementsPage(): React.JSX.Element {
   return (
-    <div className="flex-1 flex flex-col bg-[#020b24] text-slate-100 min-h-screen">
-      {/* Hero Header */}
-      <section className="relative overflow-hidden border-b border-slate-800/80 bg-[#06153b]/40 px-6 py-16 md:py-24">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#0ba5f9]/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#e08b00]/5 rounded-full blur-3xl pointer-events-none" />
-        
-        <div className="max-w-4xl mx-auto text-center space-y-6">
-          <span className="text-[10px] uppercase text-[#0ba5f9] font-bold tracking-widest bg-[#0ba5f9]/10 px-3 py-1 rounded-full">
-            Commercial Finance
+    <div className="flex-1 flex flex-col bg-[#020b24] text-slate-100 min-h-screen selection:bg-blue-500/30">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#020b24] via-[#04123b] to-[#020b24] py-16 md:py-24 px-4 border-b border-slate-900 text-center">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(11,165,249,0.08),transparent_50%)]" />
+        <div className="max-w-4xl mx-auto relative z-10 space-y-4">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] md:text-xs font-semibold bg-amber-500/10 text-amber-500 tracking-wide uppercase border border-amber-500/20">
+            Document Upload Guide
           </span>
-          <h1 className="font-display text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
-            How to Download and upload Bank Statements
+          <h1 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+            How to Download & Upload <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#0ba5f9] to-indigo-300">Bank Statements</span>
           </h1>
-          <p className="text-slate-350 text-xs md:text-sm max-w-2xl mx-auto leading-relaxed">
-            When you are applying for funding we need the complete last 4 months of the business bank statements along with the online application you can upload the statements and attach them to the online application by first going to your banks website and do...
+          <p className="text-base md:text-lg text-slate-350 max-w-2xl mx-auto leading-relaxed">
+            Follow our simple instructions to secure and submit the 4 months of statements required to process your commercial funding application.
           </p>
-          <div className="pt-4">
-            <Link
-              href="/apply"
-              className="inline-block bg-[#e08b00] hover:bg-[#d67d00] text-white font-bold text-xs uppercase tracking-widest px-8 py-3.5 rounded-xl transition-smooth shadow-lg shadow-[#e08b00]/15"
-            >
-              Apply Now
-            </Link>
-          </div>
         </div>
       </section>
 
-      {/* Main Content */}
-      <section className="max-w-4xl w-full mx-auto px-6 py-16 space-y-12">
-        {/* Paragraphs */}
-        <div className="space-y-6">
-          <p className="text-xs md:text-sm text-slate-300 leading-relaxed">
-            About Us Contact Us
-          </p>
+      {/* Steps Section */}
+      <section className="max-w-5xl mx-auto px-4 py-16 md:py-24">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          {/* Step 1 Card */}
+          <div className="bg-slate-900/60 border border-slate-800/80 backdrop-blur-md rounded-2xl p-8 relative flex flex-col justify-between shadow-xl">
+            <div>
+              <span className="text-3xl font-extrabold text-[#0ba5f9]/30 block mb-4">01</span>
+              <h3 className="text-lg font-bold text-white mb-3">Download Statements</h3>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                Log in to your business bank&apos;s online portal. Locate the account statements section and download the complete past <span className="text-white font-semibold">4 months</span> of statements as PDF files onto your device.
+              </p>
+            </div>
+            <div className="mt-6 pt-4 border-t border-slate-800/40 text-xs text-slate-400">
+              * Make sure all pages of each statement are included.
+            </div>
+          </div>
+
+          {/* Step 2 Card */}
+          <div className="bg-slate-900/60 border border-slate-800/80 backdrop-blur-md rounded-2xl p-8 relative flex flex-col justify-between shadow-xl">
+            <div>
+              <span className="text-3xl font-extrabold text-amber-500/30 block mb-4">02</span>
+              <h3 className="text-lg font-bold text-white mb-3">Attach to Application</h3>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                While completing our secure online application form, look for the document upload link. You can drag and drop or select your downloaded bank statement files to upload them directly.
+              </p>
+            </div>
+            <div className="mt-6 pt-4 border-t border-slate-800/40 text-xs text-slate-400">
+              * Fully encrypted AES-256-GCM upload.
+            </div>
+          </div>
+
+          {/* Step 3 Card */}
+          <div className="bg-slate-900/60 border border-slate-800/80 backdrop-blur-md rounded-2xl p-8 relative flex flex-col justify-between shadow-xl">
+            <div>
+              <span className="text-3xl font-extrabold text-emerald-500/30 block mb-4">03</span>
+              <h3 className="text-lg font-bold text-white mb-3">Alternative Submission</h3>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                If uploading directly is not convenient, you can attach the statements to a separate email and send them to your designated BFS representative, or submit them via fax.
+              </p>
+            </div>
+            <div className="mt-6 pt-4 border-t border-slate-800/40 text-xs text-slate-400">
+              * Whichever method is most convenient for you.
+            </div>
+          </div>
+
         </div>
 
-        {/* Headings */}
-        
-
-        {/* Lists & Parameters */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-        <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 bg-slate-950/40 relative">
-          <h3 className="font-display font-semibold text-sm uppercase text-[#0ba5f9] tracking-wider mb-4">
-            Parameters & Requirements
-          </h3>
-          <ul className="space-y-3">
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>How to Download and upload Bank Statements</span>
-              </li>
-            
-          </ul>
-        </div>
-      </div>
-
-        {/* Verification and Security Panel */}
-        <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 bg-slate-950/20 text-center space-y-4">
-          <h4 className="font-display font-semibold text-xs text-white uppercase tracking-wider">
-            Secured Connection & Fast Processing
-          </h4>
-          <p className="text-[11px] text-slate-400 max-w-lg mx-auto">
-            All applications are processed securely using AES-256-GCM encryption. Pre-qualification outcomes are delivered within 24 to 48 hours.
+        {/* Call to Action Banner */}
+        <div className="mt-16 bg-gradient-to-r from-slate-900/60 to-slate-950/60 border border-slate-850 rounded-2xl p-8 md:p-12 text-center space-y-6">
+          <h3 className="text-xl md:text-2xl font-bold text-white">Ready to Submit Your Application?</h3>
+          <p className="text-sm text-slate-300 max-w-xl mx-auto">
+            Once you have your statements downloaded, complete our secure 4-step wizard to initiate underwriting.
           </p>
           <div className="pt-2">
-            <Link
-              href="/apply"
-              className="inline-block bg-slate-900 hover:bg-slate-850 border border-slate-800 text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-xl text-[#0ba5f9] transition-smooth"
-            >
-              Get Pre-qualified
+            <Link href="/apply">
+              <span className="inline-block px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold text-base rounded-xl shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 hover:scale-[1.02] active:scale-[0.98] transition cursor-pointer">
+                Start Secure Application
+              </span>
             </Link>
           </div>
         </div>

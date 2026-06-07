@@ -1,133 +1,63 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
 
-export default function merchantcashadvancePage(): React.JSX.Element {
+export default function MerchantCashAdvancePage(): React.JSX.Element {
   return (
-    <div className="flex-1 flex flex-col bg-[#020b24] text-slate-100 min-h-screen">
-      {/* Hero Header */}
-      <section className="relative overflow-hidden border-b border-slate-800/80 bg-[#06153b]/40 px-6 py-16 md:py-24">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#0ba5f9]/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#e08b00]/5 rounded-full blur-3xl pointer-events-none" />
-        
-        <div className="max-w-4xl mx-auto text-center space-y-6">
-          <span className="text-[10px] uppercase text-[#0ba5f9] font-bold tracking-widest bg-[#0ba5f9]/10 px-3 py-1 rounded-full">
-            Commercial Finance
+    <div className="min-h-screen bg-[#020b24] text-slate-100 font-sans selection:bg-blue-500/30">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#020b24] via-[#04123b] to-[#020b24] py-20 md:py-28 px-4 border-b border-slate-900">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(11,165,249,0.08),transparent_50%)]" />
+        <div className="max-w-4xl mx-auto text-center relative z-10 space-y-4">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#0ba5f9]/10 text-[#0ba5f9] tracking-wide uppercase border border-[#0ba5f9]/20">
+            Funding Solutions
           </span>
-          <h1 className="font-display text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
             Merchant Cash Advance
           </h1>
-          <p className="text-slate-350 text-xs md:text-sm max-w-2xl mx-auto leading-relaxed">
-            A Merchant Cash Advance is a short term unsecured loan provided to a merchant in advance of his or her future business. The loan is then repaid in two different ways either through the merchant’s credit card sales by taking a small percentage of the ...
-          </p>
-          <div className="pt-4">
-            <Link
-              href="/apply"
-              className="inline-block bg-[#e08b00] hover:bg-[#d67d00] text-white font-bold text-xs uppercase tracking-widest px-8 py-3.5 rounded-xl transition-smooth shadow-lg shadow-[#e08b00]/15"
-            >
-              Apply Now
-            </Link>
-          </div>
         </div>
       </section>
 
-      {/* Main Content */}
-      <section className="max-w-4xl w-full mx-auto px-6 py-16 space-y-12">
-        {/* Paragraphs */}
-        <div className="space-y-6">
-          <p className="text-xs md:text-sm text-slate-300 leading-relaxed">
-            *Note: Rates and terms will vary depending on the merchant’s credit worthiness, time in business, industry type and other factors that are considered. For more details, please contact us and a representative will answer all of you questions and assist you through the funding process. Finally, you can apply here by clicking onto the link here and completing the online application.
+      {/* Content Section */}
+      <section className="max-w-3xl mx-auto px-4 py-16 md:py-20">
+        <div className="bg-slate-900/40 border border-slate-800/80 backdrop-blur-md rounded-2xl p-8 md:p-12 shadow-2xl space-y-8">
+          <p className="text-slate-300 text-base md:text-lg leading-relaxed">
+            A Merchant Cash Advance is a short term unsecured loan provided to a merchant in advance of his or her future business. The loan is then repaid in two different ways either through the merchant’s credit card sales by taking a small percentage of the daily transactions or by ACH debiting the merchants business bank account either once a business day or once a week until the funds are repaid. These type of loans are usually 3 to 18 months to repay the funds and do not require business and personal financials or collateral like traditional funding all that is required is the following:
           </p>
-        
-          <p className="text-xs md:text-sm text-slate-300 leading-relaxed">
-            About Us Contact Us
-          </p>
-        </div>
 
-        {/* Headings */}
-        
+          <div className="space-y-4 pt-6 border-t border-slate-800/60">
+            <ul className="space-y-3">
+              {[
+                "Minimum of 3 months or longer in business",
+                "Complete last 4 months of the business bank statements showing business activity",
+                "Minimum credit score 475",
+                "Must be 18 years old or older",
+                "Proof of Ownership of business",
+                "Valid state or government issued ID",
+                "US Citizen or legal resident or green card status",
+                "Online application completed"
+              ].map((requirement, index) => (
+                <li key={index} className="flex items-start gap-3 text-slate-300 text-base">
+                  <span className="mt-2 flex h-2 w-2 shrink-0 rounded-full bg-[#0ba5f9] shadow-[0_0_8px_rgba(11,165,249,0.6)]" />
+                  <span>{requirement}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        {/* Lists & Parameters */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-        <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 bg-slate-950/40 relative">
-          <h3 className="font-display font-semibold text-sm uppercase text-[#0ba5f9] tracking-wider mb-4">
-            Parameters & Requirements
-          </h3>
-          <ul className="space-y-3">
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Merchant Cash Advance</span>
-              </li>
-            
-          </ul>
-        </div>
-      
-        <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 bg-slate-950/40 relative">
-          <h3 className="font-display font-semibold text-sm uppercase text-[#0ba5f9] tracking-wider mb-4">
-            Parameters & Requirements
-          </h3>
-          <ul className="space-y-3">
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Minimum of 3 months or longer in business</span>
-              </li>
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Complete last 4 months of the business bank statements showing business activity</span>
-              </li>
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Minimum credit score 475</span>
-              </li>
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Most be 18 years old or older</span>
-              </li>
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Proof of Ownership of business</span>
-              </li>
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Valid state or government issued ID</span>
-              </li>
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>US Citizen or legal resident or green card status</span>
-              </li>
-            
-              <li className="text-xs text-slate-300 flex items-start gap-2.5">
-                <span className="text-[#0ba5f9] mt-0.5">•</span>
-                <span>Online application completed</span>
-              </li>
-            
-          </ul>
-        </div>
-      </div>
+          <div className="space-y-4 pt-6 border-t border-slate-800/60 text-sm text-slate-400 leading-relaxed">
+            <p>
+              *Note: Rates and terms will vary depending on the merchant’s credit worthiness, time in business, industry type and other factors that are considered. For more details, please contact us and a representative will answer all of your questions and assist you through the funding process.
+            </p>
+            <p>
+              Finally, you can apply here by clicking onto the link below and completing the online application.
+            </p>
+          </div>
 
-        {/* Verification and Security Panel */}
-        <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 bg-slate-950/20 text-center space-y-4">
-          <h4 className="font-display font-semibold text-xs text-white uppercase tracking-wider">
-            Secured Connection & Fast Processing
-          </h4>
-          <p className="text-[11px] text-slate-400 max-w-lg mx-auto">
-            All applications are processed securely using AES-256-GCM encryption. Pre-qualification outcomes are delivered within 24 to 48 hours.
-          </p>
-          <div className="pt-2">
-            <Link
-              href="/apply"
-              className="inline-block bg-slate-900 hover:bg-slate-850 border border-slate-800 text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-xl text-[#0ba5f9] transition-smooth"
-            >
-              Get Pre-qualified
+          <div className="pt-8 border-t border-slate-800/60 flex justify-center">
+            <Link href="/apply" className="w-full sm:w-auto text-center">
+              <span className="inline-block w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold rounded-xl shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 cursor-pointer">
+                Apply Now
+              </span>
             </Link>
           </div>
         </div>

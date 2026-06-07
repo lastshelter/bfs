@@ -38,14 +38,8 @@ export default function ApplySuccessPage(): React.JSX.Element {
 
           <div className="space-y-3">
             <Link
-              href="/portal"
-              className="block w-full py-3 bg-[#0ba5f9] hover:bg-[#008ee3] text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-smooth shadow-lg shadow-[#0ba5f9]/15"
-            >
-              Go to Portal Dashboard
-            </Link>
-            <Link
               href="/"
-              className="block w-full py-3 bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold text-xs uppercase tracking-wider rounded-xl border border-slate-800 transition-smooth"
+              className="block w-full py-3 bg-[#0ba5f9] hover:bg-[#008ee3] text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-smooth shadow-lg shadow-[#0ba5f9]/15"
             >
               Back to Homepage
             </Link>
