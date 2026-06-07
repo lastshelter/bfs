@@ -159,6 +159,7 @@ export default function AdministrativePortalPage(): React.JSX.Element {
         <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-[#0ba5f9]/10 blur-[120px] animate-float-slow pointer-events-none" />
         <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-amber-500/10 blur-[120px] animate-float-slow-reverse pointer-events-none" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-purple-500/5 blur-[150px] pointer-events-none" />
+        <div className="absolute inset-0 tech-grid-bg pointer-events-none opacity-40" />
 
         <header className="border-b border-slate-800/80 bg-[#020b24]/40 backdrop-blur-md px-6 py-4 z-10">
           <div className="max-w-6xl mx-auto flex justify-between items-center">
@@ -169,45 +170,48 @@ export default function AdministrativePortalPage(): React.JSX.Element {
         </header>
 
         <main className="flex-1 flex items-center justify-center p-6 z-10">
-          <div className="w-full max-w-md bg-slate-900/40 border border-slate-800/80 backdrop-blur-xl rounded-3xl p-8 md:p-10 shadow-2xl relative animate-card-entrance hover:border-slate-700/60 focus-within:border-[#0ba5f9]/30 transition-all duration-500 group">
+          <div className="w-full max-w-md bg-slate-900/40 border border-slate-800/80 backdrop-blur-xl rounded-3xl p-8 md:p-10 shadow-2xl relative animate-card-entrance hover:border-slate-700/60 focus-within:border-[#0ba5f9]/30 transition-all duration-500 group tech-border-glow">
             {/* Inner radial card glow */}
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-[#0ba5f9]/0 via-[#0ba5f9]/0 to-[#0ba5f9]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
             
             <div className="text-center mb-8 border-b border-slate-800/60 pb-6">
-              <h1 className="font-display font-bold text-xl tracking-tight text-white mb-2">
-                Owner/Admin Login to Control Panel
+              <h1 className="font-display font-black text-2xl tracking-tight text-white mb-2 leading-tight uppercase">
+                Biggs Funding Solutions <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0ba5f9] via-blue-400 to-[#e08b00] drop-shadow-[0_0_10px_rgba(11,165,249,0.25)]">
+                  Admin Panel
+                </span>
               </h1>
-              <p className="text-slate-400 text-[10px] uppercase tracking-widest font-semibold">
-                Authorized Personnel Security Gateway
+              <p className="text-slate-400 text-[9px] uppercase tracking-[0.2em] font-semibold">
+                Secure Operational Gateway
               </p>
             </div>
 
             <form onSubmit={handleLogin} className="space-y-5">
               <div className="space-y-1.5">
                 <label className="block text-[10px] font-bold text-slate-450 uppercase tracking-widest">
-                  Corporate Username
+                  Username
                 </label>
                 <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Enter username (e.g. admin, michaelb)"
-                  className="w-full bg-slate-950/70 border border-slate-800/80 rounded-xl px-4 py-3 text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-[#0ba5f9]/50 focus:border-[#0ba5f9]/50 shadow-[0_0_15px_rgba(11,165,249,0.02)] focus:shadow-[0_0_20px_rgba(11,165,249,0.08)] transition-all duration-300"
+                  placeholder="Enter username"
+                  className="w-full bg-slate-950/70 border border-slate-800/80 rounded-xl px-4 py-3 text-xs text-slate-100 placeholder-slate-650 focus:outline-none focus:ring-1 focus:ring-[#0ba5f9]/50 focus:border-[#0ba5f9]/50 shadow-[0_0_15px_rgba(11,165,249,0.02)] focus:shadow-[0_0_20px_rgba(11,165,249,0.08)] transition-all duration-300"
                   required
                 />
               </div>
 
               <div className="space-y-1.5">
                 <label className="block text-[10px] font-bold text-slate-450 uppercase tracking-widest">
-                  Security Passkey / Password
+                  Password
                 </label>
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter passkey value"
-                    className="w-full bg-slate-950/70 border border-slate-800/80 rounded-xl pl-4 pr-16 py-3 text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-[#0ba5f9]/50 focus:border-[#0ba5f9]/50 shadow-[0_0_15px_rgba(11,165,249,0.02)] focus:shadow-[0_0_20px_rgba(11,165,249,0.08)] transition-all duration-300"
+                    placeholder="Enter password"
+                    className="w-full bg-slate-950/70 border border-slate-800/80 rounded-xl pl-4 pr-16 py-3 text-xs text-slate-100 placeholder-slate-655 focus:outline-none focus:ring-1 focus:ring-[#0ba5f9]/50 focus:border-[#0ba5f9]/50 shadow-[0_0_15px_rgba(11,165,249,0.02)] focus:shadow-[0_0_20px_rgba(11,165,249,0.08)] transition-all duration-300"
                     required
                   />
                   <button
