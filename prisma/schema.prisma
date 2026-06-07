@@ -1,0 +1,83 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  CLIENT
+  UNDERWRITER
+  ADMIN
+}
+
+enum ApplicationStatus {
+  DRAFT
+  SUBMITTED
+  IN_REVIEW
+  APPROVED
+  FUNDED
+  DENIED
+}
+
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  passwordHash String
+  firstName    String
+  lastName     String
+  role         Role      @default(CLIENT)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  company      Company?
+}
+
+model Company {
+  id             String               @id @default(uuid())
+  userId         String               @unique
+  user           User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  legalName      String
+  einEncrypted   String
+  revenueAnnual  Decimal              @db.Decimal(15, 2)
+  phone          String
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+  applications   FundingApplication[]
+}
+
+model FundingApplication {
+  id                String              @id @default(uuid())
+  companyId         String
+  company           Company             @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  requestedAmount   Decimal             @db.Decimal(15, 2)
+  status            ApplicationStatus   @default(DRAFT)
+  notes             String?
+  encryptedMetadata String?
+  encryptedLogs     String?
+  timeInBusiness    String?
+  useOfFunds        String?
+  creditScoreTier   String?
+  documents         FinancialDocument[]
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+}
+
+model FinancialDocument {
+  id             String             @id @default(uuid())
+  applicationId  String
+  originalName   String             // Encrypted before storage
+  storagePath    String             // Randomized, obscure UUID-based file path mapping
+  mimeType       String
+  uploadedAt     DateTime           @default(now())
+  application    FundingApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+}
+
+model SystemAuditLog {
+  id            String   @id @default(uuid())
+  timestamp     DateTime @default(now())
+  status        String
+  event         String
+  actor         String
+  applicationId String?
+}

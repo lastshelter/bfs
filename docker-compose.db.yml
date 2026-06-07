@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  postgres_dev:
+    image: postgres:15-alpine
+    container_name: biggs_postgres_dev
+    environment:
+      POSTGRES_USER: dev_user
+      POSTGRES_PASSWORD: dev_secure_password_2026
+      POSTGRES_DB: biggs_funding_local
+    ports:
+      - "5432:5432"
+    volumes:
+      - biggs_db_data:/var/lib/postgresql/data
+
+volumes:
+  biggs_db_data:
