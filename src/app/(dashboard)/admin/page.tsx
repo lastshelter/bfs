@@ -1,5 +1,3 @@
-import React from 'react';
-
 // 1. Explicitly define what an Application object looks like so the compiler passes safely
 interface MappedApplication {
   id: string;
@@ -48,7 +46,6 @@ export default function AdminDashboard({ applications = [] }: AdminDashboardProp
                   </tr>
                 </thead>
                 <tbody>
-                  {/* Added explicit type argument (app: MappedApplication) to clear the error instantly */}
                   {applications.map((app: MappedApplication) => {
                     return (
                       <tr key={app.id} className="border-b border-slate-800/40 hover:bg-slate-800/20 transition-colors">
