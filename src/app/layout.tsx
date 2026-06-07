@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Outfit } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import FaqWidget from "@/components/FaqWidget";
 import "./globals.css";
 import React from "react";
 
@@ -116,6 +117,7 @@ export default function RootLayout({ children }: RootLayoutProps): React.JSX.Ele
         <Navbar />
         <main className="flex-grow flex flex-col">{children}</main>
         <Footer />
+        <FaqWidget />
       </body>
     </html>
   );

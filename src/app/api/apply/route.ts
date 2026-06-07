@@ -131,10 +131,14 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       return { user, company, application };
     });
 
+    const tokenPayload = encryptField(transactionResult.application.id);
+    const trackingToken = `${tokenPayload.iv}:${tokenPayload.encryptedData}:${tokenPayload.tag}`;
+
     return NextResponse.json({
       success: true,
       message: "Application processed and secured successfully.",
       applicationId: transactionResult.application.id,
+      token: trackingToken,
     }, { status: 200 });
 
   } catch (error) {

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/core/database/prisma";
 import { decryptField } from "@/core/encryption/crypto";
 import PortalUpload from "./PortalUpload";
+import RadarReportCard from "./RadarReportCard";
 
 interface PageProps {
   readonly searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -259,7 +260,14 @@ export default async function TrackPage({ searchParams }: PageProps): Promise<Re
           
           {/* Column 1 & 2: Client profile details, communication logs, and audit logs */}
           <div className="md:col-span-2 space-y-8">
-            
+            {/* Interactive Radar Report Card */}
+            <RadarReportCard
+              creditScoreTier={application.creditScoreTier}
+              revenueAnnual={Number(application.company.revenueAnnual)}
+              timeInBusiness={application.timeInBusiness}
+              requestedAmount={Number(application.requestedAmount)}
+            />
+
             {/* Business Profile Metadata */}
             <div className="glass-panel rounded-2xl p-6 border border-slate-800/80 bg-slate-950/40 relative">
               <h3 className="font-display font-semibold text-lg text-white mb-4">

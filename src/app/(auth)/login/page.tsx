@@ -1,25 +1,47 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage(): React.JSX.Element {
-  const [email, setEmail] = useState<string>("");
+  const [email, setEmail] = useState<string>(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("biggs_admin_username") || "";
+    }
+    return "";
+  });
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
+  const [rememberMe, setRememberMe] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      return !!localStorage.getItem("biggs_admin_username");
+    }
+    return false;
+  });
+  const emailInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    if (emailInputRef.current) {
+      emailInputRef.current.focus();
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
-    console.log("Attempting NextAuth signIn payload submission...");
+    if (rememberMe) {
+      localStorage.setItem("biggs_admin_username", email);
+    } else {
+      localStorage.removeItem("biggs_admin_username");
+    }
 
     try {
       const res = await signIn("credentials", {
@@ -36,11 +58,11 @@ export default function LoginPage(): React.JSX.Element {
         setError("Invalid corporate credentials. Please try again.");
       } else {
         const session = await getSession();
+        let targetPath = "/portal";
         if (session?.user?.role === "ADMIN" || session?.user?.role === "UNDERWRITER") {
-          router.push("/admin");
-        } else {
-          router.push("/portal");
+          targetPath = "/admin";
         }
+        router.push(targetPath);
       }
     } catch (err) {
       console.error("NextAuth Client Misfire Exception:", err);
@@ -51,22 +73,15 @@ export default function LoginPage(): React.JSX.Element {
   };
 
   return (
-    <main className="flex-1 flex justify-center items-center px-4 py-16 relative overflow-hidden">
-      {/* Animated Background Glowing Orbs */}
-      <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-[#0ba5f9]/10 blur-[120px] animate-float-slow pointer-events-none" />
-      <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-amber-500/10 blur-[120px] animate-float-slow-reverse pointer-events-none" />
+    <main className="flex-1 flex justify-center items-center px-4 py-16 relative overflow-hidden selection:bg-blue-500/30">
+      {/* Background Glowing Orbs */}
+      <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-[#0ba5f9]/10 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-amber-500/10 blur-[120px] pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-purple-500/5 blur-[150px] pointer-events-none" />
+      <div className="absolute inset-0 tech-grid-bg pointer-events-none opacity-40" />
 
-      <div className="w-full max-w-md bg-slate-900/40 border border-slate-800/80 backdrop-blur-xl rounded-3xl p-8 md:p-10 shadow-2xl relative animate-card-entrance hover:border-slate-700/60 focus-within:border-[#0ba5f9]/30 transition-all duration-500 group">
-        {/* Inner radial card glow */}
+      <div className="w-full max-w-md bg-slate-900/40 border border-slate-800/80 backdrop-blur-xl rounded-3xl p-8 md:p-10 shadow-2xl relative animate-card-entrance hover:border-slate-700/60 focus-within:border-[#0ba5f9]/30 transition-all duration-500 group tech-border-glow">
         <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-[#0ba5f9]/0 via-[#0ba5f9]/0 to-[#0ba5f9]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-
-        <h1 className="font-display font-bold text-xl text-white mb-2 text-center">
-          Owner/Admin Login to Control Panel
-        </h1>
-        <p className="text-slate-400 text-xs mb-6 text-center">
-          Access your secure funding tracker and documentation dashboard.
-        </p>
 
         {error && (
           <div className="text-xs text-rose-450 bg-rose-500/10 border border-rose-500/25 rounded-lg px-3.5 py-2 mb-4 animate-shake-error font-semibold">
@@ -74,19 +89,30 @@ export default function LoginPage(): React.JSX.Element {
           </div>
         )}
 
+        <h1 className="font-display font-black text-2xl tracking-tight text-white mb-2 text-center leading-tight uppercase">
+          Biggs Funding Solutions <br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0ba5f9] via-blue-400 to-[#e08b00] drop-shadow-[0_0_10px_rgba(11,165,249,0.25)]">
+            Admin Panel
+          </span>
+        </h1>
+        <p className="text-slate-400 text-xs mb-6 text-center">
+          Access your secure funding tracker and documentation dashboard.
+        </p>
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="email" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-              Corporate Username or Email Address
+              Username or Email Address
             </label>
             <input
+              ref={emailInputRef}
               type="text"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="e.g. admin, michaelb"
+              placeholder="Enter username"
               required
-              className="w-full px-4 py-3 bg-slate-950/70 border border-slate-800/80 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-[#0ba5f9]/50 focus:border-[#0ba5f9]/50 shadow-[0_0_15px_rgba(11,165,249,0.02)] focus:shadow-[0_0_20px_rgba(11,165,249,0.08)] text-sm transition-all duration-300"
+              className="w-full px-4 py-3 bg-slate-950/70 border border-slate-800/80 rounded-xl text-white placeholder-slate-650 focus:outline-none focus:ring-1 focus:ring-[#0ba5f9]/50 focus:border-[#0ba5f9]/50 shadow-[0_0_15px_rgba(11,165,249,0.02)] focus:shadow-[0_0_20px_rgba(11,165,249,0.08)] text-sm transition-all duration-300"
             />
           </div>
 
@@ -105,9 +131,9 @@ export default function LoginPage(): React.JSX.Element {
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
+                placeholder="Enter password"
                 required
-                className="w-full pl-4 pr-12 py-3 bg-slate-950/70 border border-slate-800/80 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-[#0ba5f9]/50 focus:border-[#0ba5f9]/50 shadow-[0_0_15px_rgba(11,165,249,0.02)] focus:shadow-[0_0_20px_rgba(11,165,249,0.08)] text-sm transition-all duration-300"
+                className="w-full pl-4 pr-12 py-3 bg-slate-950/70 border border-slate-800/80 rounded-xl text-white placeholder-slate-655 focus:outline-none focus:ring-1 focus:ring-[#0ba5f9]/50 focus:border-[#0ba5f9]/50 shadow-[0_0_15px_rgba(11,165,249,0.02)] focus:shadow-[0_0_20px_rgba(11,165,249,0.08)] text-sm transition-all duration-300"
               />
               <button
                 type="button"
@@ -126,6 +152,18 @@ export default function LoginPage(): React.JSX.Element {
                 )}
               </button>
             </div>
+          </div>
+
+          <div className="flex items-center justify-between text-[11px] py-0.5">
+            <label className="flex items-center gap-2 text-slate-400 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+                className="rounded border-slate-800 bg-slate-950 text-[#0ba5f9] focus:ring-[#0ba5f9]/50 h-3.5 w-3.5 cursor-pointer accent-[#0ba5f9]"
+              />
+              <span>Remember my session</span>
+            </label>
           </div>
 
           <button
@@ -161,6 +199,5 @@ export default function LoginPage(): React.JSX.Element {
         </div>
       </div>
     </main>
-
   );
 }

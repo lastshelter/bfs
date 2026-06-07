@@ -145,6 +145,57 @@
   background-size: 24px 24px;
 }
 
+/* Advanced Interactive Animations */
+@keyframes pulseGlow {
+  0% {
+    r: 2px;
+    opacity: 1;
+  }
+  100% {
+    r: 15px;
+    opacity: 0;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+@keyframes scanlineSweep {
+  0% {
+    top: 0%;
+  }
+  50% {
+    top: 100%;
+  }
+  100% {
+    top: 0%;
+  }
+}
+
+.animate-scanline {
+  animation: scanlineSweep 4s ease-in-out infinite;
+}
+
+@keyframes drawPath {
+  0% {
+    stroke-dashoffset: 60;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-draw-path {
+  stroke-dasharray: 8 4;
+  animation: drawPath 1.5s linear infinite;
+}
+
+.magnifier-overlay {
+  box-shadow: 0 0 0 2px rgba(11, 165, 249, 0.5), 0 12px 24px rgba(0, 0, 0, 0.7);
+}
+
+
 
 
 

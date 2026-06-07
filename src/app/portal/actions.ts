@@ -174,3 +174,28 @@ export async function updateSubmissionStatus(
     throw new Error("Failed to update application status.");
   }
 }
+
+export async function updateApplicationNotes(
+  id: string,
+  notes: string,
+  password: string
+): Promise<{ success: boolean; notes: string }> {
+  if (!isAuthorizedAdmin(password)) {
+    throw new Error("Unauthorized: Invalid password.");
+  }
+
+  try {
+    const updated = await prisma.fundingApplication.update({
+      where: { id },
+      data: {
+        notes,
+      },
+    });
+
+    return { success: true, notes: updated.notes || "" };
+  } catch (error) {
+    console.error("Failed to update advisory notes:", error);
+    throw new Error("Failed to update application advisory notes.");
+  }
+}
+

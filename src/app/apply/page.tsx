@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -17,6 +17,53 @@ function ApplyPageContent(): React.JSX.Element {
   const { handleNext, handlePrev, validateField } = useFormStepTransition();
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
+  const [trackingToken, setTrackingToken] = useState<string>("");
+  const [showRecovery, setShowRecovery] = useState(false);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout | undefined;
+    if (typeof window !== "undefined") {
+      const draft = localStorage.getItem("biggs_apply_form_draft");
+      if (draft) {
+        timer = setTimeout(() => setShowRecovery(true), 0);
+      }
+    }
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const hasData = state.formData.firstName || state.formData.legalName || state.formData.email;
+      if (hasData && !state.applicationId) {
+        localStorage.setItem("biggs_apply_form_draft", JSON.stringify(state.formData));
+      }
+    }
+  }, [state.formData, state.applicationId]);
+
+  const handleRestoreDraft = () => {
+    if (typeof window !== "undefined") {
+      const draft = localStorage.getItem("biggs_apply_form_draft");
+      if (draft) {
+        try {
+          const parsed = JSON.parse(draft);
+          Object.keys(parsed).forEach((key) => {
+            dispatch({
+              type: "UPDATE_FIELD",
+              payload: {
+                field: key as keyof WizardData,
+                value: parsed[key] as string | number,
+              },
+            });
+          });
+        } catch (e) {
+          console.error("Failed to restore draft:", e);
+        }
+      }
+    }
+    setShowRecovery(false);
+  };
 
   const handleInputChange = (field: keyof WizardData, value: string | number) => {
     dispatch({ type: "UPDATE_FIELD", payload: { field, value } });
@@ -63,6 +110,10 @@ function ApplyPageContent(): React.JSX.Element {
       }
 
       dispatch({ type: "SET_APPLICATION_ID", payload: data.applicationId });
+      setTrackingToken(data.token || "");
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("biggs_apply_form_draft");
+      }
       dispatch({ type: "SET_STEP", payload: 4 });
     } catch {
       dispatch({
@@ -117,7 +168,14 @@ function ApplyPageContent(): React.JSX.Element {
 
   const handleFinish = () => {
     dispatch({ type: "RESET_FORM" });
-    router.push("/apply/success");
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("biggs_apply_form_draft");
+    }
+    if (trackingToken) {
+      router.push(`/apply/success?token=${encodeURIComponent(trackingToken)}`);
+    } else {
+      router.push("/apply/success");
+    }
   };
 
   return (
@@ -137,7 +195,35 @@ function ApplyPageContent(): React.JSX.Element {
 
       {/* Main Wizard */}
       <main className="flex-1 flex items-center justify-center p-6">
-        <div className="w-full max-w-xl glass-panel rounded-3xl p-8 border border-slate-800 shadow-2xl relative">
+        <div className="w-full max-w-xl glass-panel rounded-3xl p-8 border border-slate-800 shadow-2xl relative animate-card-entrance">
+          
+          {showRecovery && (
+            <div className="mb-6 p-4 bg-[#0ba5f9]/10 border border-[#0ba5f9]/30 rounded-2xl flex justify-between items-center text-xs animate-in slide-in-from-top-2">
+              <div>
+                <span className="font-bold text-white block">Resume Unfinished Application?</span>
+                <span className="text-slate-400">We found a saved draft of your previous session.</span>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={handleRestoreDraft}
+                  className="px-3.5 py-1.5 bg-[#0ba5f9] text-white font-bold rounded-lg uppercase tracking-wider text-[10px] cursor-pointer"
+                >
+                  Resume
+                </button>
+                <button
+                  onClick={() => {
+                    if (typeof window !== "undefined") {
+                      localStorage.removeItem("biggs_apply_form_draft");
+                    }
+                    setShowRecovery(false);
+                  }}
+                  className="px-3.5 py-1.5 bg-slate-900 border border-slate-800 text-slate-400 hover:text-white font-bold rounded-lg uppercase tracking-wider text-[10px] cursor-pointer"
+                >
+                  Discard
+                </button>
+              </div>
+            </div>
+          )}
           <div className="absolute top-0 right-0 w-32 h-32 bg-[#0ba5f9]/10 rounded-full blur-3xl -z-10" />
 
           {/* Stepper Header */}
