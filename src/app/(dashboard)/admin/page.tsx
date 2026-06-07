@@ -1,159 +1,74 @@
-import { prisma } from "@/core/database/prisma";
-import AdminTable, { MappedApplication } from "./AdminTable";
-import React from "react";
-import Link from "next/link";
-import { encryptField } from "@/core/encryption/crypto";
-import LogoutButton from "./LogoutButton";
+import React from 'react';
 
-export const revalidate = 0;
+// 1. Explicitly define what an Application object looks like so the compiler passes safely
+interface MappedApplication {
+  id: string;
+  clientName?: string;
+  status?: string;
+  createdAt?: string | Date;
+}
 
-export default async function AdminPage(): Promise<React.JSX.Element> {
-  // 1. Fetch initial lists
-  const applications = await prisma.fundingApplication.findMany({
-    include: {
-      company: {
-        include: {
-          user: true,
-        },
-      },
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+interface AdminDashboardProps {
+  applications?: MappedApplication[];
+}
 
-  const mappedApplications: readonly MappedApplication[] = applications.map((app) => {
-    const tokenPayload = encryptField(app.id);
-    const token = `${tokenPayload.iv}:${tokenPayload.encryptedData}:${tokenPayload.tag}`;
-    
-    return {
-      id: app.id,
-      token,
-      createdAt: app.createdAt.toISOString(),
-      requestedAmount: Number(app.requestedAmount),
-      status: app.status,
-      timeInBusiness: app.timeInBusiness,
-      useOfFunds: app.useOfFunds,
-      creditScoreTier: app.creditScoreTier,
-      company: {
-        id: app.company.id,
-        legalName: app.company.legalName,
-        revenueAnnual: Number(app.company.revenueAnnual),
-        phone: app.company.phone,
-        user: {
-          firstName: app.company.user.firstName,
-          lastName: app.company.user.lastName,
-          email: app.company.user.email,
-        },
-      },
-    };
-  });
-
-  // 2. Fetch advanced reporting metrics (Prisma Aggregations)
-  const totalCompanies = await prisma.company.count();
-  const totalDocuments = await prisma.financialDocument.count();
-  
-  const aggregates = await prisma.fundingApplication.aggregate({
-    _sum: {
-      requestedAmount: true,
-    },
-  });
-  
-  const totalFundingVolume = Number(aggregates._sum.requestedAmount ?? 0);
-  const formattedVolume = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(totalFundingVolume);
-
+export default function AdminDashboard({ applications = [] }: AdminDashboardProps) {
   return (
-    <div className="flex-1 flex flex-col min-h-screen bg-[#020b24] text-white">
-      {/* Header Shell */}
-      <header className="border-b border-slate-800/80 bg-brand-dark/40 backdrop-blur-md px-6 py-4">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <Link href="/" className="font-display font-bold text-lg text-white tracking-widest flex flex-col leading-none">
-            <span className="text-sm tracking-wider">BIGGS</span>
-            <span className="text-xs text-[#0ba5f9] tracking-widest font-extrabold mt-0.5">UNDERWRITING DESK</span>
-          </Link>
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Secured Node Active</span>
+    <div className="min-h-screen bg-[#020b24] p-4 md:p-8 text-slate-100 font-sans">
+      <div className="max-w-7xl mx-auto">
+
+        {/* HEADER CONTROL BLOCK */}
+        <div className="mb-8 border-b border-slate-800 pb-5">
+          <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+            Underwriter Control Desk
+          </h1>
+          <p className="text-sm text-slate-400 mt-1">
+            Real-time commercial intake files and verification pipeline.
+          </p>
+        </div>
+
+        {/* DATA CONTAINER MATRIX */}
+        <div className="bg-slate-900/60 border border-slate-800 backdrop-blur-md rounded-xl p-6 shadow-xl">
+          <h2 className="text-xs font-bold text-[#0ba5f9] tracking-wider uppercase mb-4">
+            Active Incoming Inquiries
+          </h2>
+
+          {applications.length === 0 ? (
+            <div className="text-center py-12 border border-dashed border-slate-800 rounded-lg">
+              <p className="text-sm text-slate-500">No active client files currently pending assignment.</p>
             </div>
-            <Link
-              href="/"
-              className="text-xs bg-slate-900 hover:bg-slate-850 border border-slate-800 text-slate-350 px-3.5 py-1.5 rounded-xl font-medium transition-smooth"
-            >
-              Back to Site
-            </Link>
-            <LogoutButton />
-          </div>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="flex-1 max-w-6xl w-full mx-auto px-6 py-10">
-        <div className="mb-8 flex flex-col md:flex-row md:justify-between md:items-end gap-4">
-          <div>
-            <h1 className="font-display text-3xl font-extrabold text-white mb-2">
-              Underwriter Review Matrix
-            </h1>
-            <p className="text-slate-400 text-xs">
-              Secure administrative access to client applications. Decryption of sensitive corporate information is executed on-demand.
-            </p>
-          </div>
-          <div className="flex gap-4">
-            <a
-              href="/api/admin/export"
-              download
-              className="text-xs bg-[#e08b00] hover:bg-[#d67d00] border border-[#d67d00]/30 text-white font-bold uppercase tracking-wider px-4 py-2.5 rounded-xl transition-smooth shadow-lg shadow-[#e08b00]/15 flex items-center gap-2"
-            >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-              </svg>
-              Export Excel Report
-            </a>
-          </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-sm border-collapse">
+                <thead>
+                  <tr className="border-b border-slate-800 text-slate-400 font-semibold">
+                    <th className="py-3 px-4">File ID</th>
+                    <th className="py-3 px-4">Entity/Client</th>
+                    <th className="py-3 px-4">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {/* Added explicit type argument (app: MappedApplication) to clear the error instantly */}
+                  {applications.map((app: MappedApplication) => {
+                    return (
+                      <tr key={app.id} className="border-b border-slate-800/40 hover:bg-slate-800/20 transition-colors">
+                        <td className="py-3 px-4 font-mono text-xs text-[#0ba5f9]">{app.id}</td>
+                        <td className="py-3 px-4 font-medium text-slate-200">{app.clientName || 'Commercial Inquiry'}</td>
+                        <td className="py-3 px-4">
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                            {app.status || 'Pending Review'}
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
 
-        {/* SECURE AUTOMATED REPORTING METRICS PANEL */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-slate-950/45 border border-slate-800/80 rounded-2xl p-5 shadow-lg relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-[#0ba5f9]/5 rounded-full blur-2xl" />
-            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Total Filings</div>
-            <div className="text-2xl font-black text-white">{mappedApplications.length}</div>
-            <p className="text-[9px] text-slate-500 mt-1">Submitted applications</p>
-          </div>
-
-          <div className="bg-slate-950/45 border border-slate-800/80 rounded-2xl p-5 shadow-lg relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-[#e08b00]/5 rounded-full blur-2xl" />
-            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Funding Volume</div>
-            <div className="text-2xl font-black text-[#e08b00]">{formattedVolume}</div>
-            <p className="text-[9px] text-slate-500 mt-1">Total requested pipeline</p>
-          </div>
-
-          <div className="bg-slate-950/45 border border-slate-800/80 rounded-2xl p-5 shadow-lg relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full blur-2xl" />
-            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Secured Files</div>
-            <div className="text-2xl font-black text-emerald-450">{totalDocuments}</div>
-            <p className="text-[9px] text-slate-500 mt-1">Uploaded bank/tax files</p>
-          </div>
-
-          <div className="bg-slate-950/45 border border-slate-800/80 rounded-2xl p-5 shadow-lg relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-purple-500/5 rounded-full blur-2xl" />
-            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Corporate Clients</div>
-            <div className="text-2xl font-black text-purple-400">{totalCompanies}</div>
-            <p className="text-[9px] text-slate-500 mt-1">Registered businesses</p>
-          </div>
-        </div>
-
-        <AdminTable initialApplications={mappedApplications} />
-      </main>
-
-      {/* Footer */}
-      <footer className="py-6 border-t border-slate-800/80 bg-brand-dark/20 text-center text-[10px] text-slate-500">
-        © 2026 Biggs Funding Solutions. Secure Admin Console.
-      </footer>
+      </div>
     </div>
   );
 }
